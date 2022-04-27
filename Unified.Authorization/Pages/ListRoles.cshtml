@@ -1,0 +1,105 @@
+﻿@page "/Roles/List"
+@model Unified.Authorization.Pages.RolesModel
+@inject IStringLocalizer<SharedResources> SharedLocalizer
+@{
+
+    <p>
+        <a asp-page="CreateRole" class="button is-link is-outlined">@SharedLocalizer["ListRoles.CreateNew"]</a>
+    </p>
+    <table class="table">
+        
+        <thead>
+            <tr>
+                @{ var first = Model.Roles.data.FirstOrDefault(); }
+                <th>
+                    @SharedLocalizer["ListRoles.EnName"]
+                </th>
+                <th>
+                    @SharedLocalizer["ListRoles.ArName"]
+                </th>
+                <th>
+                    @SharedLocalizer["ListRoles.UserCount"]
+                </th>
+                <th>
+                    @SharedLocalizer["ListRoles.Actions"]
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Roles.data)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ArName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserCount)
+                    </td>
+
+                    <td>
+                        <a class="button is-primary" name="aEditRole" asp-page="/EditRole" asp-route-RoleId="@item.Id">
+                            @SharedLocalizer["ListRoles.Edit"]</a>
+
+                        <!--<a asp-action="ShowUsers" asp-route-id="@item.Id">Users</a> |-->
+
+                        @if (item.Disabled)
+                        {
+                            <a name="aEnableRole" class="button is-success" asp-page="ListRoles" asp-page-handler="Disable"
+                               asp-route-RoleId="@item.Id" asp-route-Disabled="false" asp-route-pageNumber="@Model.Roles.page"
+                               asp-route-pageSize="@Model.Roles.pageSize">@SharedLocalizer["ListRoles.Enable"]</a>
+                        }
+                        else if (item.UserCount < 1)
+                        {
+                            <a name="aDisableRole" class="button is-danger" asp-page="ListRoles" asp-page-handler="Disable"
+                               asp-route-RoleId="@item.Id" asp-route-Disabled="true" asp-route-pageNumber="@Model.Roles.page"
+                               asp-route-pageSize="@Model.Roles.pageSize">@SharedLocalizer["ListRoles.Disable"]</a>
+                        }
+
+                        @*<a href=@($"/Roles/EditRights?RoleId={item.Id}&ApplicationId=-1")
+                            class="btn btn-sm btn-primary">Edit Rights</a>*@
+
+                        <!--The following call can be improved by sending to a specific get-->
+                            <a name="aEditRights" asp-page="EditRoleClaims" asp-route-RoleId="@item.Id" asp-route-ApplicationId="-1"
+                               class="button is-warning is-light">@SharedLocalizer["ListRoles.EditRights"]</a>
+                    </td>
+
+                </tr>
+
+            }
+
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th colspan="3">
+
+                    @if (Model.Roles.page > 1)
+                    {
+                        <a class="button is-info is-outlined" asp-page="/ListRoles" asp-route-pageNumber="1" 
+                           asp-route-pageSize="@Model.Roles.pageSize">@SharedLocalizer["First"]</a>
+                        <a class="button is-info is-outlined" asp-page="/ListRoles" asp-route-pageNumber="@Model.Roles.previouspage"
+                           asp-route-pageSize="@Model.Roles.pageSize">@SharedLocalizer["Previous"]</a>
+                    }
+
+                    @if (Model.Roles.page < Model.Roles.totalpage)
+                    {
+                        <a class="button is-info is-outlined" asp-page="/ListRoles" asp-route-pageNumber="@Model.Roles.nextpage"
+                           asp-route-pageSize="@Model.Roles.pageSize">@SharedLocalizer["Next"]</a>
+                        <a class="button is-info is-outlined" asp-page="/ListRoles" asp-route-pageNumber="@Model.Roles.totalpage"
+                           asp-route-pageSize="@Model.Roles.pageSize">@SharedLocalizer["Last"]</a>
+                    }
+
+                </th>
+                <td>
+                    @SharedLocalizer["Page"] <label>@Model.Roles.page</label> @SharedLocalizer["Outof"]                    
+                    <label>@Model.Roles.totalpage</label>@SharedLocalizer["TotalRecords"] <label>@Model.Roles.totalrecords</label>
+                </td>
+            </tr>
+
+        </tfoot>
+    </table>
+
+}

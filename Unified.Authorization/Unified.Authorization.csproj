@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	  <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+	  <UserSecretsId>3a9b33a8-8899-4779-8903-70ea96a5c8cf</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\ApplicationClaims.cs" />
+    <Compile Remove="Models\RolesView.cs" />
+    <Compile Remove="Models\Role_Application.cs" />
+    <Compile Remove="Models\Role_ApplicationsEdit.cs" />
+    <Compile Remove="Models\Role_App_ClaimEdit.cs" />
+    <Compile Remove="Models\UserEdit.cs" />
+    <Compile Remove="Pages\Privacy.cshtml.cs" />
+    <Compile Remove="Repository\IRoleApplicationsRepository.cs" />
+    <Compile Remove="Repository\IRole_App_ClaimsRepository.cs" />
+    <Compile Remove="Repository\IUserRepository.cs" />
+    <Compile Remove="Repository\RoleApplicationsRepository.cs" />
+    <Compile Remove="Repository\Role_App_ClaimsRepository.cs" />
+    <Compile Remove="Repository\UserRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Pages\Privacy.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Partial\_ChangeLanguagePartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.10.9" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+    <PackageReference Include="toastr" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationPOCO\ApplicationPOCO.csproj" />
+  </ItemGroup>
+
+</Project>

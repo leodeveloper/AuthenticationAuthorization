@@ -1,0 +1,102 @@
+﻿@page "/Roles/Edit"
+@model Unified.Authorization.Pages.EditRoleModel
+@inject IStringLocalizer<SharedResources> SharedLocalizer
+@{
+
+    <div>
+        <h3>@SharedLocalizer["EditRole.Title"] [@(CultureHelper.GetLanguageValue() == 1? Model.Data.Role.ArName : Model.Data.Role.Name)]</h3>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input name="Id" value="@Model.Data.Role.Id" hidden="hidden" />
+
+                <div>
+                    <label class="column">@SharedLocalizer["EditRole.EnName"] </label>
+                    <input class="input column" name="Name" value="@Model.Data.Role.Name" />
+                    <span asp-validation-for="@Model.Data.Role.Name" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="column">@SharedLocalizer["EditRole.ArName"]</label>
+                    <input class="input" name="ArName" value="@Model.Data.Role.ArName" />
+                    <span asp-validation-for="@Model.Data.Role.ArName" class="text-danger"></span>
+                </div>
+                <div>
+                    <label class="column">@SharedLocalizer["EditRole.Description"]</label>
+                    <input class="input" name="Description" value="@Model.Data.Role.Description" />
+                    <span asp-validation-for="@Model.Data.Role.Description" class="text-danger"></span>
+                </div>
+                <br />
+                <br />
+                <h4 class="bg-info p-1 text-white">
+                    @SharedLocalizer["EditRole.AddTo"]
+                    @*@(CultureHelper.GetLanguageValue() == 1? Model.Data.Role.ArName : Model.Data.Role.Name)*@
+                </h4>
+                <table class="table is-bordered">
+
+                    <tr>
+                        <td colspan="4">@SharedLocalizer["EditRole.NonMembers"]</td>
+                    </tr>
+                    <tr>
+                        <td>@SharedLocalizer["EditRole.UserName"]</td>
+                        <td>@SharedLocalizer["EditRole.Include"]</td>
+                    </tr>
+
+                    @if (Model.Data.NonMembers.Count() != 0)
+                    {
+                        @foreach (var user in Model.Data.NonMembers)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>
+                                    <input class="checkbox" type="checkbox" name="AddIds" value="@user.Id" />
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </table>
+
+                <h4 class="bg-info p-1 text-white">
+                    @SharedLocalizer["EditRole.RemoveFrom"]
+                    @*@(CultureHelper.GetLanguageValue() == 1? Model.Data.Role.ArName : Model.Data.Role.Name)*@
+                </h4>
+
+                <table class="table is-bordered">
+
+                    <tr>
+                        <td colspan="4">@SharedLocalizer["EditRole.CurrentMembers"]</td>
+                    </tr>
+                    <tr>
+                        <td>@SharedLocalizer["EditRole.UserName"]</td>
+                        <td>@SharedLocalizer["EditRole.Exclude"]</td>
+                    </tr>
+
+                    @if (Model.Data.Members.Count() != 0)
+                    {
+                        @foreach (var user in Model.Data.Members)
+                        {
+                            <tr>
+                                <td>@user.UserName</td>
+                                <td>
+                                    <input class="checkbox" type="checkbox" name="DeleteIds" value="@user.Id" />
+                                </td>
+                            </tr>
+                        }
+                    }
+
+                </table>
+
+                <div class="form-group">
+                    <input type="submit" value="@SharedLocalizer["Save"]" class="button is-outlined is-success" />
+                    <a asp-page="ListRoles" class="button is-outlined is-link">@SharedLocalizer["BackToList"]</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+}

@@ -1,0 +1,56 @@
+﻿@page "/Roles/Create"
+@model Unified.Authorization.Pages.CreateRoleModel
+@inject IStringLocalizer<SharedResources> SharedLocalizer
+@{
+    <h5>@SharedLocalizer["CreateRole.New"]</h5>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+
+            <form method="post">
+                @*asp-action="/CreateRole"*@
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="@Model.Role.Id" hidden="hidden" />
+                            
+                <div class="columns">
+                    <label class="column" >@SharedLocalizer["CreateRole.EnName"]</label>
+                    <input asp-for="@Model.Role.Name" class="input column is-10" />
+                    <span asp-validation-for="@Model.Role.Name" class="text-danger"></span>
+                </div>
+
+                <div class="columns">
+                    @*asp-for="@Model.Role.ArName"*@
+                    <label class="column">@SharedLocalizer["CreateRole.ArName"]</label>
+                    <input asp-for="@Model.Role.ArName" class="input column is-10" />
+                    <span asp-validation-for="@Model.Role.ArName" class="text-danger"></span>
+                </div>
+
+                <div class="columns">
+                    
+                    <label class="column">@SharedLocalizer["CreateRole.Description"]</label>
+                    <input asp-for="@Model.Role.Description" class="input column is-10" />
+                    <span asp-validation-for="@Model.Role.Description" class="text-danger"></span>
+                </div>
+
+                <div hidden="hidden">
+                    <input asp-for="@Model.Role.NormalizedName" />
+                    <span asp-validation-for="@Model.Role.NormalizedName" class="text-danger"></span>
+                </div>
+
+                <div hidden="hidden">
+                    <label asp-for="@Model.Role.ConcurrencyStamp"></label>
+                    <input asp-for="@Model.Role.ConcurrencyStamp" class="input" />
+                    <span asp-validation-for="@Model.Role.ConcurrencyStamp" class="text-danger"></span>
+                </div>
+
+                <div class="columns">
+                    <input type="submit" value="@SharedLocalizer["CreateRole.Save"]" class="button is-success" />                    
+                    <a asp-page="ListRoles" class="button is-link">@SharedLocalizer["CreateRole.BackToList"]</a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+        
+}

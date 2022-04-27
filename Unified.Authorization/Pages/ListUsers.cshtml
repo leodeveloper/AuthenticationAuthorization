@@ -1,0 +1,406 @@
+﻿@page "/Users/List"
+@model ListUsersModel
+@inject IStringLocalizer<Unified.Authorization.SharedResources> SharedLocalizer
+@{
+    var userEdit = Model.ViewModel.data;
+    var usersResponse = userEdit.Users;
+    var rolesResponse = userEdit.Roles;
+    ViewData["Title"] = @SharedLocalizer["ListUsers.Title"];
+        
+    <br />
+
+    <form method="post"
+          asp-page="ListUsers"
+          asp-route-UserId="@userEdit.UserId"
+          asp-route-UserPageNo="@usersResponse.page"
+          asp-route-UserPageSize="@usersResponse.pageSize"
+          asp-route-RolePageNo="@rolesResponse.page"
+          asp-route-RolePageSize="@rolesResponse.pageSize"
+          asp-route-SearchText="@Model.SearchText"
+          asp-route-UserInfoView="@Model.UserInfoView">
+
+        <Table class="table is-bordered">
+            <tr>
+                <td name="leftPanel">
+
+                    <div class="columns">
+                        <div class="column"><input name="SearchText" type="text" value="@Model.SearchText" placeholder="@SharedLocalizer["SearchPlaceHolder"]" class="input is-rounded" /></div>
+                        <div class="column is-3"><input type="submit" name="Search" value="@SharedLocalizer["ListUsers.Search"]" asp-page-handler="Search" class="button is-info is-outlined is-rounded"  /></div>
+
+                    </div>
+
+                    @if (usersResponse.data?.Count > 0)
+                    {
+                        <table class="table is-striped is-hoverable">
+
+                            <thead>
+                                <tr>
+                                    <th>@SharedLocalizer["ListUsers.UserName"]</th>
+                                    <th>@SharedLocalizer["ListUsers.Email"]</th>
+                                    <th></th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+                                @foreach (var user in usersResponse.data)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a class=@(userEdit.UserId == user.Id? "selected_item":"")
+                                               asp-page="ListUsers"
+                                               asp-route-Email="@user.Email"
+                                               asp-route-UserId="@user.Id"
+                                               asp-route-UserPageNo="@usersResponse.page"
+                                               asp-route-UserPageSize="@usersResponse.pageSize"
+                                               asp-route-RolePageNo="@rolesResponse.page"
+                                               asp-route-RolePageSize="@rolesResponse.pageSize"
+                                               asp-route-SearchText="@Model.SearchText"
+                                               asp-route-UserInfoView="@Model.UserInfoView"> @user.UserName</a>
+                                        </td>
+
+                                        <td>@user.Email</td>
+
+                                        <td>
+                                            <a asp-page="ListUsers" asp-page-handler="Lock"
+                                               asp-route-Locked="@(!user.LockoutEnabled)"
+                                               asp-route-Email="@user.Email"
+                                               asp-route-UserId="@user.Id"
+                                               asp-route-UserPageNo="@usersResponse.page"
+                                               asp-route-UserPageSize="@usersResponse.pageSize"
+                                               asp-route-RolePageNo="@rolesResponse.page"
+                                               asp-route-RolePageSize="@rolesResponse.pageSize"
+                                               asp-route-SearchText="@Model.SearchText"
+                                               asp-route-UserInfoView="@Model.UserInfoView">
+
+                                                @(user.LockoutEnabled? @SharedLocalizer["ListUsers.Unlock"] : @SharedLocalizer["ListUsers.Lock"])
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3">
+
+                                        @if (usersResponse.page > 1)
+                                        {
+                                        <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                           asp-route-UserPageNo="1"
+                                           asp-route-UserPageSize="@usersResponse.pageSize"
+                                           asp-route-RolePageNo="@rolesResponse.page"
+                                           asp-route-RolePageSize="@rolesResponse.pageSize"
+                                           asp-route-SearchText="@Model.SearchText"
+                                           asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["First"]</a>
+
+                                        <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                           asp-route-UserPageNo="@usersResponse.previouspage"
+                                           asp-route-UserPageSize="@usersResponse.pageSize"
+                                           asp-route-RolePageNo="@rolesResponse.page"
+                                           asp-route-RolePageSize="@rolesResponse.pageSize"
+                                           asp-route-SearchText="@Model.SearchText"
+                                           asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["Previous"]</a>
+                                        }
+
+                                        @if (usersResponse.page < usersResponse.totalpage)
+                                        {
+                                            <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                               asp-route-UserPageNo="@usersResponse.nextpage"
+                                               asp-route-UserPageSize="@usersResponse.pageSize"
+                                               asp-route-RolePageNo="@rolesResponse.page"
+                                               asp-route-RolePageSize="@rolesResponse.pageSize"
+                                               asp-route-SearchText="@Model.SearchText"
+                                               asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["Next"]</a>
+
+                                            <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                               asp-route-UserPageNo="@usersResponse.totalpage"
+                                               asp-route-UserPageSize="@usersResponse.pageSize"
+                                               asp-route-RolePageNo="@rolesResponse.page"
+                                               asp-route-RolePageSize="@rolesResponse.pageSize"
+                                               asp-route-SearchText="@Model.SearchText"
+                                               asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["Last"]</a>
+                                        }
+
+                                        <span>  @SharedLocalizer["Page"] <label> @usersResponse.page </label> @SharedLocalizer["Outof"] <label> @usersResponse.totalpage </label> @SharedLocalizer["TotalRecords"] <label> @usersResponse.totalrecords </label></span>
+                                    
+                                    </th>
+
+                                </tr>
+                            </tfoot>
+
+                        </table>
+                    }
+
+                </td>
+
+                <td name="rightPanel">
+
+                    <div class="tabs is-boxed">
+                        <ul>
+                            <li class="@(Model.UserInfoView == ListUsersModel.enumUserInfoView.Roles? "is-active":"")">
+                                <a asp-page="/ListUsers"
+                                   asp-route-UserId="@userEdit.UserId"
+                                   asp-route-UserPageNo="@usersResponse.page"
+                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                   asp-route-RolePageNo="@rolesResponse.page"
+                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                   asp-route-SearchText="@Model.SearchText"
+                                   asp-route-UserInfoView="@((int) ListUsersModel.enumUserInfoView.Roles)"> @SharedLocalizer["ListUsers.Roles"] </a>
+                            </li>
+                            <li class="@(Model.UserInfoView == ListUsersModel.enumUserInfoView.Rights? "is-active":"")">
+                                <a asp-page="/ListUsers"
+                                   asp-route-UserId="@userEdit.UserId"
+                                   asp-route-UserPageNo="@usersResponse.page"
+                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                   asp-route-RolePageNo="@rolesResponse.page"
+                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                   asp-route-SearchText="@Model.SearchText"
+                                   asp-route-UserInfoView="@((int) ListUsersModel.enumUserInfoView.Rights)"> @SharedLocalizer["ListUsers.UserRights"]</a>
+                            </li>
+                            <li class="@(Model.UserInfoView == ListUsersModel.enumUserInfoView.ContactInfo? "is-active":"")
+                                       @(userEdit.ContactInfo == null? "is-hidden":"")">
+                                <a asp-page="/ListUsers"
+                                   asp-route-UserId="@userEdit.UserId"
+                                   asp-route-UserPageNo="@usersResponse.page"
+                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                   asp-route-RolePageNo="@rolesResponse.page"
+                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                   asp-route-SearchText="@Model.SearchText"
+                                   asp-route-UserInfoView="@((int) ListUsersModel.enumUserInfoView.ContactInfo)">@SharedLocalizer["ListUsers.ContactInfo"]</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @if (Model.UserInfoView == ListUsersModel.enumUserInfoView.Roles)
+                    {
+                        <div name="divRoles">
+                            
+                            @*<div><a class="button is-success" asp-page="CreateRole">@SharedLocalizer["ListUsers.NewRole"]</a></div>*@
+
+                            <table name="RolesBodyTable" class="table is-hoverable is-striped">
+
+                                <thead>
+
+                                    <tr>
+                                        <th></th>
+                                        <th>@SharedLocalizer["ListUsers.RoleEnglishName"]</th>
+                                        <th>@SharedLocalizer["ListUsers.RoleArabicName"]</th>
+                                        <th>@SharedLocalizer["ListUsers.RoleDescription"]</th>
+                                        @*<th>@SharedLocalizer["ListUsers.RoleEditRights"]</th>*@
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    @foreach (var role in rolesResponse.data)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <input name="GivenRoleIds" type="checkbox" value="@role.Id"
+                                                   @(userEdit.GivenRoleIds.Contains(role.Id) ? "checked" : "") />
+                                        </td>
+                                        <td>@role.Name</td>
+                                        <td>@role.ArName</td>
+                                        <td>@role.Description</td>
+                                        @*<td>
+                                            <a class="button is-success" asp-page="EditRoleClaims" asp-route-ViewOnly="@true"
+                                               asp-route-RoleId="@role.Id">                                                
+                                                @SharedLocalizer["ListUsers.RoleViewRights"]
+                                            </a>
+                                        </td>*@
+                                    </tr>
+                                    }
+
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4">
+
+                                            @if (rolesResponse.page > 1)
+                                            {
+                                                <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                                   asp-route-UserId="@userEdit.UserId"
+                                                   asp-route-UserPageNo="@usersResponse.page"
+                                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                                   asp-route-RolePageNo="1"
+                                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                                   asp-route-SearchText="@Model.SearchText"
+                                                   asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["First"]</a>
+
+                                                <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                                   asp-route-UserId="@userEdit.UserId"
+                                                   asp-route-UserPageNo="@usersResponse.page"
+                                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                                   asp-route-RolePageNo="@rolesResponse.previouspage"
+                                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                                   asp-route-SearchText="@Model.SearchText"
+                                                   asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["Previous"]</a>
+                                            }
+
+                                            @if (rolesResponse.page < rolesResponse.totalpage)
+                                            {
+                                                <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                                   asp-route-UserId="@userEdit.UserId"
+                                                   asp-route-UserPageNo="@usersResponse.page"
+                                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                                   asp-route-RolePageNo="@rolesResponse.nextpage"
+                                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                                   asp-route-SearchText="@Model.SearchText"
+                                                   asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["Next"]</a>
+
+                                                <a class="button is-info is-outlined is-rounded" asp-page="/ListUsers"
+                                                   asp-route-UserId="@userEdit.UserId"
+                                                   asp-route-UserPageNo="@usersResponse.page"
+                                                   asp-route-UserPageSize="@usersResponse.pageSize"
+                                                   asp-route-RolePageNo="@rolesResponse.totalpage"
+                                                   asp-route-RolePageSize="@rolesResponse.pageSize"
+                                                   asp-route-SearchText="@Model.SearchText"
+                                                   asp-route-UserInfoView="@Model.UserInfoView">@SharedLocalizer["Last"]</a>
+                                            }
+
+                                            @SharedLocalizer["Page"]<label>@rolesResponse.page</label> @SharedLocalizer["Outof"]
+                                            <label>@rolesResponse.totalpage</label>@SharedLocalizer["TotalRecords"]
+                                            <label>@rolesResponse.totalrecords</label>
+
+                                        </th>
+
+                                    </tr>
+
+                                </tfoot>
+
+                            </table>
+                        </div>
+                    }
+
+                    @if (Model.UserInfoView == ListUsersModel.enumUserInfoView.Rights && Model.UserId != null)
+                    {
+                        <div name="divUserRights">
+                            <ul id="myUL" class="rootNode">
+                                <li>
+                                    <span class="caret">@SharedLocalizer["ListUsers.Applications"]</span>
+
+                                    @*@if(Model.ViewModel.data.GrantedApplications.data.Count > 0)*@
+
+                                    <ul class="nested nodeLevel1">
+                                        @foreach (var app in Model.ViewModel.data.GrantedApplications.data)
+                                        {
+                                            <li>
+                                                <span class="caret">@app.ApplicationName</span>
+
+                                                @{
+                                                    // Get the modules of the current application
+                                                    var appModules = Model.ViewModel.data.GrantedModules.data.
+                                                        Where(dt => dt.ApplicationId == app.ApplicationId).ToList();
+
+                                                    // Get application level claims
+                                                    var appLevelClaims = Model.ViewModel.data.GrantedClaims.data.
+                                                        Where(dt => dt.ApplicationId == app.ApplicationId && !dt.ModuleId.HasValue ).ToList();
+                                                }
+
+                                                <ul class="nested nodeLevel2">
+
+                                                    @if (appLevelClaims.Count > 0)
+                                                    {
+                                                        <li>
+                                                            <span class="caret">@SharedLocalizer["ListUsers.App-LevelClaims"]</span>
+                                                            <ul class="nested nodeLevel3">
+
+                                                                @foreach (var claim in appLevelClaims)
+                                                                {                                                                    
+                                                                    <li> @(CultureHelper.GetLanguageValue() == 1? claim.ArTitle: claim.EnTitle)</li>
+                                                                }
+                                                            </ul>
+
+                                                        </li>
+                                                    }
+
+                                                    @foreach (var module in appModules)
+                                                    {
+                                                        <li>
+                                                            <span class="caret">@(CultureHelper.GetLanguageValue() == 1? module.ArName: module.EnName)</span>
+                                                            
+                                                            @{
+                                                                var moduleClaims = Model.ViewModel.data.GrantedClaims.data.Where(dt => dt.ModuleId == module.Id);
+                                                            }
+
+                                                            <ul class="nested nodeLevel3">
+
+                                                                @foreach (var claim in moduleClaims)
+                                                                {
+                                                                    <li> @(CultureHelper.GetLanguageValue() == 1? claim.ArTitle: claim.EnTitle)</li>                                                                    
+                                                                }
+
+                                                            </ul>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    }
+
+                    @if (Model.UserInfoView == ListUsersModel.enumUserInfoView.ContactInfo && userEdit.ContactInfo != null)
+                    {
+                        <div name="divContactInfo">
+                            <span>@SharedLocalizer["ListUsers.Profile"]</span>
+                            <table class="table is-bordered" name="contactInfoTable">
+
+                                <tr>
+                                    <td>
+                                        @SharedLocalizer["ListUsers.ProfileArName"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo.Namear" />  <br />
+                                        @SharedLocalizer["ListUsers.ProfileEnName"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo.Nameen" /> <br />
+                                        @SharedLocalizer["ListUsers.ProfilePhone"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo?.Phoneno" /> <br />
+                                        @SharedLocalizer["ListUsers.ProfileMobileNo"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo.Mobileno" /> <br />
+                                        @SharedLocalizer["ListUsers.ProfileEmail"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo.Emailid" />  <br />
+                                    </td>
+                                    <td>
+                                        @SharedLocalizer["ListUsers.ProfileDesignation"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo.Designationid" />  <br />
+                                        @SharedLocalizer["ListUsers.ProfileCompany"]: <input class="input" type="text" readonly="readonly" value="@userEdit.ContactInfo.Companyid" />  <br />
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    }
+
+                </td>
+            </tr>
+
+            <tfoot>
+
+                <tr>
+
+                    <td colspan="2">
+                        <div>
+                            @if (userEdit.UserId != null)
+                            {
+                                <input class="button" type="submit" name="Save" value="@SharedLocalizer["ListUsers.SaveChanges"]" />
+                            }
+                            else
+                            {
+                                <h6><span>@SharedLocalizer["ListUsers.SelectUserToEdit"]</span></h6>
+                            }
+
+                        </div>
+                    </td>
+
+                </tr>
+
+            </tfoot>
+
+        </Table>
+
+    </form>
+
+}

@@ -1,0 +1,125 @@
+﻿@page "/Roles/Claims"
+@model Unified.Authorization.Pages.EditRoleClaimsModel
+@inject IStringLocalizer<Unified.Authorization.SharedResources> SharedLocalizer
+
+@{
+
+    <header>
+        <h1>@SharedLocalizer["EditRoleClaims.SettingRightsFor"] [@Model.Data.Role.Name] @SharedLocalizer["on"] [@Model.Data.ApplicationName]</h1>
+    </header>
+
+    <hr />
+    <form asp-route-RoleId="@Model.Data.Role.Id"
+        asp-route-ApplicationId="@Model.Data.ApplicationId"
+        asp-route-ModuleId="@Model.Data.ModuleId">
+
+        <div class="row">
+
+            <table class="table is-bordered">
+                <!--class="table table-bordered table-sm editting_table"-->
+                <thead>
+                    <tr>
+                        <th>@SharedLocalizer["EditRoleClaims.Applications"]</th>
+                        <th>Modules</th>
+                        <th>Rights</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>
+                        <Table class="table">
+                            @foreach (var app in Model.Data.Applications)
+                            {
+                                <tr>
+                                    <td>
+
+                                        <a class=@(
+                                            ((Model.Data.ApplicationId == app.ApplicationId)? "selected_item" : "") +
+                                            (Model.Data.AssessibleApps.Contains(app.ApplicationId)? " underlined_text":"")
+                                            )
+                                           asp-page="EditRoleClaims" asp-route-RoleId="@Model.Data.Role.Id"
+                                           asp-route-ApplicationId="@app.ApplicationId">@app.ApplicationName</a>
+                                        <!--The name of the application should be in Arabic-->
+                                    </td>
+                                </tr>
+                            }
+                        </Table>
+                    </td>
+                    <td>
+                        <Table class="table">
+
+                            @foreach (var module in Model.Data.Modules)
+                            {
+                                <tr>
+                                    <td>
+                                        <a class=@((Model.Data.ModuleId == module.Id)? "selected_item" : "")
+                                           asp-page="EditRoleClaims" asp-route-RoleId="@Model.Data.Role.Id"
+                                           asp-route-ApplicationId="@Model.Data.ApplicationId" asp-route-ModuleId="@module.Id">
+                                            @(CultureHelper.GetLanguageValue() == 1? module.ArName : module.EnName)
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </Table>
+                    </td>
+                    <td>
+                        <!-- The for will be only for submitting the checked rights along with the RoleId, which will be a hidden input
+                        So, the form is going to be in a table cell -->
+                        <!--The claimTypes should contain either application-level claims, or module-level claims if a module is selected -->
+
+                        @if (Model.Data.ClaimTypes.Count > 0)
+                        {
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <Table class="table">
+
+                                @foreach (var claimType in Model.Data.ClaimTypes)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (Model.Data.GivenClaims.Any(dt => dt.Id == claimType.Id))
+                                            {
+                                                <input type="checkbox" name="GrantIds" value="@claimType.Id" checked="checked" />
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" name="GrantIds" value="@claimType.Id" />
+                                            }
+                                            @(CultureHelper.GetLanguageValue() == 1? claimType.ArTitle : claimType.EnTitle)
+
+                                            <!--checked value will be dependent on what claims the Role has-->
+                                        </td>
+                                    </tr>
+                                }
+
+                            </Table>
+
+                        }
+
+                    </td>
+
+                </tr>
+                <tfoot>
+                    <tr name="footer">
+                        <td>
+                            <div class="columns">
+                                <a class="button" asp-page="ListRoles">@SharedLocalizer["BackToList"]</a>
+
+                                @if (!Model.ViewOnly && !String.IsNullOrEmpty(Model.Data.ApplicationName))
+                                {
+                                    <input class="button is-primary" type="submit" value="@SharedLocalizer["Save"]" />
+                                }
+                            </div>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+
+    </form>
+
+}

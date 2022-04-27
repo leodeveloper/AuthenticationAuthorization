@@ -1,0 +1,11 @@
+﻿@page
+@model IndexModel
+@inject IStringLocalizer<Unified.Authorization.SharedResources> SharedLocalizer
+@{
+    ViewData["Title"] = SharedLocalizer["Homepage"];
+}
+
+<div class="text-center">
+    <h1 class="display-4">@SharedLocalizer["WelcomeToAuthorization"]</h1>
+
+</div>

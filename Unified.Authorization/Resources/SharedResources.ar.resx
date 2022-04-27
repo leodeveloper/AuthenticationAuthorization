@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="2021" xml:space="preserve">
+    <value>٢٠٢١</value>
+  </data>
+  <data name="AppName" xml:space="preserve">
+    <value>نظام الصلاحيات</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>الرجوع إلى القائمة</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>حقوق النسخ</value>
+  </data>
+  <data name="CreateRole.ArName" xml:space="preserve">
+    <value>الإسم (عربي)</value>
+  </data>
+  <data name="CreateRole.BackToList" xml:space="preserve">
+    <value>الرجوع إلى القائمة</value>
+  </data>
+  <data name="CreateRole.Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="CreateRole.EnName" xml:space="preserve">
+    <value>الاسم (إنكليزي)</value>
+  </data>
+  <data name="CreateRole.New" xml:space="preserve">
+    <value>إضافة دور جديد</value>
+  </data>
+  <data name="CreateRole.Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="EditRole.AddTo" xml:space="preserve">
+    <value>إضافة مستخدمين</value>
+  </data>
+  <data name="EditRole.ArName" xml:space="preserve">
+    <value>الإسم (عربي)</value>
+  </data>
+  <data name="EditRole.CurrentMembers" xml:space="preserve">
+    <value>الأعضاء الحاليين</value>
+  </data>
+  <data name="EditRole.Description" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="EditRole.EnName" xml:space="preserve">
+    <value>الإسم (إنكليزي)</value>
+  </data>
+  <data name="EditRole.Exclude" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="EditRole.Include" xml:space="preserve">
+    <value>تضمين</value>
+  </data>
+  <data name="EditRole.NonMembers" xml:space="preserve">
+    <value>غير الأعضاء</value>
+  </data>
+  <data name="EditRole.RemoveFrom" xml:space="preserve">
+    <value>إزالة مستخدمين</value>
+  </data>
+  <data name="EditRole.Title" xml:space="preserve">
+    <value>تحرير الدور</value>
+  </data>
+  <data name="EditRole.UserName" xml:space="preserve">
+    <value>إسم المستخدم</value>
+  </data>
+  <data name="EditRoleClaims.Applications" xml:space="preserve">
+    <value>البرامج</value>
+  </data>
+  <data name="EditRoleClaims.SettingRightsFor" xml:space="preserve">
+    <value>تعيين الصلاحيات لـ</value>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>الأول</value>
+  </data>
+  <data name="Homepage" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>الأخير</value>
+  </data>
+  <data name="Layout.navRoleManagement" xml:space="preserve">
+    <value>إدارة الأدوار</value>
+  </data>
+  <data name="Layout.navUserManagement" xml:space="preserve">
+    <value>إدارة المستخدمين</value>
+  </data>
+  <data name="ListRoles.Actions" xml:space="preserve">
+    <value>أفعال</value>
+  </data>
+  <data name="ListRoles.ArName" xml:space="preserve">
+    <value>الاسم (عربي)</value>
+  </data>
+  <data name="ListRoles.CreateNew" xml:space="preserve">
+    <value>إنشاء جديد</value>
+  </data>
+  <data name="ListRoles.Disable" xml:space="preserve">
+    <value>إلغاء التفعيل</value>
+  </data>
+  <data name="ListRoles.Edit" xml:space="preserve">
+    <value>تحرير</value>
+  </data>
+  <data name="ListRoles.EditRights" xml:space="preserve">
+    <value>تحرير الصلاحيات</value>
+  </data>
+  <data name="ListRoles.Enable" xml:space="preserve">
+    <value>تفعيل</value>
+  </data>
+  <data name="ListRoles.EnName" xml:space="preserve">
+    <value>الاسم (إنكليزي)</value>
+  </data>
+  <data name="ListRoles.UserCount" xml:space="preserve">
+    <value>عدد المستخدمين</value>
+  </data>
+  <data name="ListUsers.App-LevelClaims" xml:space="preserve">
+    <value>الصلاحيات (مستوى التطبيق)</value>
+  </data>
+  <data name="ListUsers.Applications" xml:space="preserve">
+    <value>التطبيقات</value>
+  </data>
+  <data name="ListUsers.ContactInfo" xml:space="preserve">
+    <value>المعلومات الشخصية</value>
+  </data>
+  <data name="ListUsers.Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="ListUsers.Lock" xml:space="preserve">
+    <value>إقفال</value>
+  </data>
+  <data name="ListUsers.NewRole" xml:space="preserve">
+    <value>دور جديد</value>
+  </data>
+  <data name="ListUsers.Profile" xml:space="preserve">
+    <value>السجل الجانبي</value>
+  </data>
+  <data name="ListUsers.ProfileArName" xml:space="preserve">
+    <value>الاسم (عربي)</value>
+  </data>
+  <data name="ListUsers.ProfileCompany" xml:space="preserve">
+    <value>الشركة</value>
+  </data>
+  <data name="ListUsers.ProfileDesignation" xml:space="preserve">
+    <value>الوظيفة</value>
+  </data>
+  <data name="ListUsers.ProfileEmail" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="ListUsers.ProfileEnName" xml:space="preserve">
+    <value>الاسم (انكليزي)</value>
+  </data>
+  <data name="ListUsers.ProfileMobileNo" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+  <data name="ListUsers.ProfilePhone" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="ListUsers.RoleArabicName" xml:space="preserve">
+    <value>الدور (عربي)</value>
+  </data>
+  <data name="ListUsers.RoleDescription" xml:space="preserve">
+    <value>الوصف</value>
+  </data>
+  <data name="ListUsers.RoleEditRights" xml:space="preserve">
+    <value>تحرير الصلاحيات</value>
+  </data>
+  <data name="ListUsers.RoleEnglishName" xml:space="preserve">
+    <value>الدور (إنكليزي)</value>
+  </data>
+  <data name="ListUsers.Roles" xml:space="preserve">
+    <value>الأدوار</value>
+  </data>
+  <data name="ListUsers.RoleViewRights" xml:space="preserve">
+    <value>مشاهدة الصلاحيات</value>
+  </data>
+  <data name="ListUsers.SaveChanges" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="ListUsers.Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="ListUsers.SelectUserToEdit" xml:space="preserve">
+    <value>اختر مستخدم للبدء</value>
+  </data>
+  <data name="ListUsers.Title" xml:space="preserve">
+    <value>تحرير صلاحيات المستخدمين</value>
+  </data>
+  <data name="ListUsers.Unlock" xml:space="preserve">
+    <value>إلغاء القفل</value>
+  </data>
+  <data name="ListUsers.UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="ListUsers.UserRights" xml:space="preserve">
+    <value>صلاحيات المستخدمين</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="on" xml:space="preserve">
+    <value>على</value>
+  </data>
+  <data name="Outof" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>الصفحة</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="SearchPlaceHolder" xml:space="preserve">
+    <value>أدخل نص</value>
+  </data>
+  <data name="TotalRecords" xml:space="preserve">
+    <value>عدد السجلات ,</value>
+  </data>
+  <data name="WelcomeToAuthorization" xml:space="preserve">
+    <value>مرحباً بكم في نظام إدارة صلاحيات المستخدمين</value>
+  </data>
+</root>
